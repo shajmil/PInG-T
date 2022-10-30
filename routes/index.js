@@ -1,7 +1,7 @@
 var express = require("express");
+require('dotenv').config()
 var router = express.Router();
 var axios = require("axios");
-
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "PInG-T" });
@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
 router.post("/", (req, res) => {
   axios
     .get(
-      "https://paydigi.airtel.in/web/pg-service/v1/validate/vpa/" +
+      process.env.VERIFICATION_API +
         req.body.upiId +
         "@paytm"
     )
@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
       if (response.data.data.status == "TXN_FAILED") {
         axios
           .get(
-            "https://paydigi.airtel.in/web/pg-service/v1/validate/vpa/" +
+            process.env.VERIFICATION_API +
               req.body.upiId +
               "@ybl"
           )
