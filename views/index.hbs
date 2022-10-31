@@ -102,20 +102,21 @@
                 url: '/',
                 data: form.serialize(), // serializes the form's elements.
                 success: function (data) {
+                    console.log(data);
                     $('table').show()
                     $('#loader').hide()
                     errorupi = decodeURIComponent(form.serialize().slice(6))
-                    if (data.data.status == 'TXN_FAILED') {
+                    if (data.status == 'TXN_FAILED') {
                         $('#upiid').html(`<p class='text-danger'>${errorupi}</p>`)
                         $('#error').html(`ERROR`)
-                        $('#name').html(`<p class='text-danger'>${data.data.responseStatus.description}</p>`)
+                        $('#name').html(`<p class='text-danger'>${data.responseStatus.description}</p>`)
                         $('#verified').html("<img width='25px' height='25px' src='/images/notverified.png'>")
 
                     }
                     else {
                         $('#upiid').html(`<p class='text-success'>${document.getElementById("phone").value}</p>`)
                         $('#error').html(`NAME`)
-                        $('#name').html(`<p class='text-success'>${data.data.payeeAccountName}</p>`)
+                        $('#name').html(`<p class='text-success'>${data.payeeAccountName}</p>`)
                         $('#verified').html("<img width='25px' height='25px' src='/images/verified.png'>")
                     }
 
